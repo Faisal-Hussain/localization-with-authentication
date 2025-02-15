@@ -83,6 +83,10 @@ class TranslationRepository
             ->limit(100)
             ->get();
     }
+    /**
+     * Fetch complete record in translation table .
+     * @return Collection
+     */
 
     public function getAllTranslations()
     {
