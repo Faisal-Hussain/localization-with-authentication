@@ -22,7 +22,7 @@ class TranslationFactory extends Factory
             'key' => $this->faker->unique()->lexify('key_??????'), // Generate more unique keys
             'locale' => $this->faker->randomElement(['en', 'fr', 'es', 'de', 'it']),
             'content' => $this->faker->sentence(),
-            'tags' => json_encode($this->faker->randomElements(['mobile', 'web', 'desktop'], rand(1, 3))),
+            'tags' => $this->faker->randomElements(['mobile', 'web', 'desktop'], rand(1, 3)),
         ];
     }
 }

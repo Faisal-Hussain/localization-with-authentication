@@ -14,4 +14,9 @@ class Translation extends Model
     protected $casts = [
         'tags' => 'array',
     ];
+
+    public function setTagsAttribute($value)
+    {
+        $this->attributes['tags'] = json_encode($value);
+    }
 }

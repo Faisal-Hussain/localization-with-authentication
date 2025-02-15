@@ -21,8 +21,11 @@ return new class extends Migration
 
             $table->index(['key', 'locale']);
             $table->fullText('content');
-            $table->string('tag_search')->storedAs("JSON_UNQUOTE(JSON_EXTRACT(tags, '$[0]'))")->nullable();
-            $table->index('tag_search');
+            $table->string('tags_index')
+                ->virtualAs("JSON_UNQUOTE(JSON_EXTRACT(tags, '$[0]'))")
+                ->stored();
+
+            $table->index('tags_index');
         });
     }
 

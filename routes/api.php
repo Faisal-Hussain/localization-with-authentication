@@ -16,7 +16,7 @@ Route::middleware(['jwt.auth'])->group(function () {
 
     Route::prefix('translations')->group(function () {
         Route::post('/', [TranslationController::class, 'store']);
-        Route::put('/{translation}', [TranslationController::class, 'update']);
+        Route::post('/{translation}', [TranslationController::class, 'update']);
         Route::get('/', [TranslationController::class, 'show']);
         Route::get('/search', [TranslationController::class, 'search']);
     });
