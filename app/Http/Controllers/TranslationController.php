@@ -8,6 +8,7 @@ use App\Repositories\TranslationRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Responses\ApiResponse;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * TranslationController handles all translation-related API requests.
@@ -98,6 +99,19 @@ class TranslationController extends Controller
     {
         $query = $request->query('search', '');
         $translations = $this->repository->search($query);
+
+        return ApiResponse::success($translations);
+    }
+
+
+    /**
+     * Export all translations to a JSON file and return a download link.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function exportTranslations()
+    {
+        $translations = $this->repository->getAllTranslations();
 
         return ApiResponse::success($translations);
     }

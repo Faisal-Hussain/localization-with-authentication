@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Translation;
 use Illuminate\Database\Eloquent\Collection;
-
+use Illuminate\Support\Facades\DB;
 /**
  * TranslationRepository handles data access logic related to translations.
  *
@@ -58,8 +58,8 @@ class TranslationRepository
     public function findByKeyAndLocale(string $key, string $locale): ?Translation
     {
         return Translation::where('key', $key)
-                          ->where('locale', $locale)
-                          ->first();
+            ->where('locale', $locale)
+            ->first();
     }
 
     /**
@@ -77,9 +77,17 @@ class TranslationRepository
     {
         return Translation::whereFullText('content', $query)
             ->orWhere('tags_index', $query)
-            ->orWhereRaw("JSON_CONTAINS(tags, ?)", [json_encode($query)])
+            ->orWhereRaw('JSON_CONTAINS(tags, ?)', [json_encode($query)])
             ->orWhere('key', $query)
             ->select('id', 'key', 'locale', 'content', 'tags')
+            ->limit(100)
             ->get();
+    }
+
+    public function getAllTranslations()
+    {
+        return DB::table('translations')
+        ->select('id', 'key', 'locale', 'content', 'tags')
+        ->get();
     }
 }

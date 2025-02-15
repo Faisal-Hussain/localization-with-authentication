@@ -19,6 +19,10 @@ Route::middleware(['jwt.auth'])->group(function () {
         Route::post('/{translation}', [TranslationController::class, 'update']);
         Route::get('/', [TranslationController::class, 'show']);
         Route::get('/search', [TranslationController::class, 'search']);
+
+
+        Route::get('/export', [TranslationController::class, 'exportTranslations']);
+
     });
 
 });
