@@ -34,7 +34,6 @@ Follow these steps to set up the project:
 ### Step 2: Install Dependencies
 ```sh
  composer install
- npm install  # If frontend assets are needed
 ```
 
 ### Step 3: Configure the Environment
