@@ -1,13 +1,14 @@
 # Localization CRUD with Authentication
 
 ## Application Summary
-This is a **Localization CRUD** system with authentication, built in Laravel. The application uses **JWT-based authentication** with a middleware named `jwtAuth` to secure API routes. It provides a **TranslationController** and a **TranslationRepository** to manage translations efficiently.
+This is a **Localization CRUD** system with authentication, built in Laravel. The application uses **JWT-based authentication** with a middleware named jwtAuth to secure API routes. It provides a **TranslationController** and a **TranslationRepository** to manage translations efficiently.
 
 The system includes:
 - **Authentication via JWT** (Register, Login, Logout, Get Current User)
 - **Translation Management** (Create, Update, Search, Export)
 - **Database Migrations and Seeders** (Preloads one user and 100,000 translation records)
 - **Unit Tests for API validation and functionality**
+- **Postman Collection for API Testing** ([Download Here](https://github.com/Faisal-Hussain/localization-with-authentication/blob/master/Localization-with-Authentication.postman_collection.json))
 
 ---
 
@@ -18,6 +19,7 @@ The system includes:
 4. [Why Use POST Instead of PUT for Updates?](#why-use-post-instead-of-put-for-updates)
 5. [Running Unit Tests](#running-unit-tests)
 6. [Database Seeding](#database-seeding)
+7. [Postman Collection](#postman-collection)
 
 ---
 
@@ -37,11 +39,12 @@ Follow these steps to set up the project:
 ```
 
 ### Step 3: Configure the Environment
-Copy the `.env.example` file and update database credentials.
+Copy the .env.example file and update database credentials.
 ```sh
  cp .env.example .env
 ```
-Set your database details in the `.env` file:
+
+Set your database details in the .env file:
 ```env
  DB_CONNECTION=mysql
  DB_HOST=127.0.0.1
@@ -84,7 +87,8 @@ Set your database details in the `.env` file:
 ```sh
  php artisan jwt:secret
 ```
-This will update your `.env` file with a secret key:
+
+This will update your .env file with a secret key:
 ```env
  JWT_SECRET=your_generated_secret_key
 ```
@@ -149,4 +153,17 @@ This will:
 
 ---
 
+## Postman Collection
+To make API testing easier, download and import the Postman collection:
+[Localization-with-Authentication.postman_collection.json](https://github.com/Faisal-Hussain/localization-with-authentication/blob/master/Localization-with-Authentication.postman_collection.json)
+
+To import the collection in Postman:
+1. Open **Postman**.
+2. Click on **Import** in the top left corner.
+3. Select **Import From Link** and paste the URL above.
+4. Click **Import**.
+
+Now you can test the API endpoints easily!
+
+---
 
