@@ -26,6 +26,9 @@ class JWTAuthController extends Controller
      */
     public function register(RegisterUserRequest $request)
     {
+        if(!empty($userExist)){
+            return ApiResponse::error('Email has been already taken', 422);
+        }
         // Create the new user
         $user = User::create([
             'name' => $request->input('name'),
