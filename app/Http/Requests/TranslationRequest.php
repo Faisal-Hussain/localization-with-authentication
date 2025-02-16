@@ -22,11 +22,10 @@ class TranslationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'key' => 'required|string|max:255',
+            'key' => 'required|string|max:255|unique:translations',
             'locale' => 'required|string|max:5',
             'content' => 'required|string',
             'tags' => 'nullable|array',
-            'tags.*' => 'nullable|string',
         ];
     }
 }

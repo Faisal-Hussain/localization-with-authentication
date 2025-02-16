@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\Translation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
+
 /**
  * TranslationRepository handles data access logic related to translations.
  *
@@ -41,7 +43,11 @@ class TranslationRepository
      */
     public function update(Translation $translation, array $data): bool
     {
-        return $translation->update($data);
+        try {
+            return $translation->update($data);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**

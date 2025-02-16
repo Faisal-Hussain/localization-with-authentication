@@ -6,7 +6,7 @@ use App\Http\Controllers\TranslationController;
 Route::post('register-user', [JWTAuthController::class, 'register']);
 Route::post('login', [JWTAuthController::class, 'login']);
 
-Route::middleware(['jwt.auth'])->group(function () {
+Route::middleware('jwtAuth')->group(function () {
     Route::get('get-current-user', [JWTAuthController::class, 'getUser']);
     Route::post('logout', [JWTAuthController::class, 'logout']);
 

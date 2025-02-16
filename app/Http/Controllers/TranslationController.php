@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TranslationRequest;
+use App\Http\Responses\ApiResponse;
 use App\Models\Translation;
 use App\Repositories\TranslationRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Responses\ApiResponse;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * TranslationController handles all translation-related API requests.
@@ -43,11 +43,21 @@ class TranslationController extends Controller
      * @param TranslationRequest $request
      * @return JsonResponse
      */
-    public function store(TranslationRequest $request): JsonResponse
+    public function store(Request $request)
     {
-        $translation = $this->repository->create($request->validated());
+        try {
+            $validated = $request->validate([
+                'key' => 'required|string|max:255|unique:translations',
+                'locale' => 'required|string|max:5',
+                'content' => 'required|string',
+                'tags' => 'nullable|array',
+            ]);
 
-        return ApiResponse::success($translation, 'Translation created successfully', 201);
+            $translation = $this->repository->create($validated);
+            return ApiResponse::success($translation, 'Translation created successfully', 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return ApiResponse::error($e->errors(), 422);
+        }
     }
 
     /**
@@ -60,11 +70,31 @@ class TranslationController extends Controller
      * @param Translation $translation
      * @return JsonResponse
      */
-    public function update(TranslationRequest $request, Translation $translation): JsonResponse
+    public function update(Request $request, $id): JsonResponse
     {
-        $this->repository->update($translation, $request->validated());
+        try {
+            $translation = Translation::find($id);
+            if (!$translation) {
+                return ApiResponse::error('Translation not found', 404);
+            }
 
-        return ApiResponse::success($translation, 'Translation updated successfully');
+            $validated = $request->validate([
+                'key' => 'required|string|max:255',
+                'locale' => 'required|string|max:5',
+                'content' => 'required|string',
+                'tags' => 'nullable|array',
+            ]);
+
+            $this->repository->update($translation, $validated);
+
+            return ApiResponse::success($translation, 'Translation updated successfully');
+        } catch (ModelNotFoundException $e) {
+            return ApiResponse::error('Translation not found', 404);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return ApiResponse::error($e->errors(), 422);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Something went wrong', 500);
+        }
     }
 
     /**
@@ -102,7 +132,6 @@ class TranslationController extends Controller
 
         return ApiResponse::success($translations);
     }
-
 
     /**
      * Export all translations to a JSON file and return a download link.
