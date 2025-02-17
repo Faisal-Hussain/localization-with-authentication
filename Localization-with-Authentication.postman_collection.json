@@ -229,29 +229,13 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "key",
-									"value": "mobile",
-									"type": "text"
-								},
-								{
-									"key": "locale",
-									"value": "en",
-									"type": "text"
-								},
-								{
-									"key": "content",
-									"value": "mobile",
-									"type": "text"
-								},
-								{
-									"key": "tags",
-									"value": "one,two,three",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\r\n    \"key\":\"Hello again\",\r\n    \"locale\":\"en\",\r\n    \"content\":\"Hello world !\",\r\n    \"tags\":[\"one\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "{{base_url}}/translations",
@@ -307,7 +291,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "100001"
+									"value": "100002"
 								}
 							]
 						}
@@ -330,23 +314,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/blogs",
+							"raw": "{{base_url}}/translations?key=key_jklcwp&locale=fr",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"blogs"
+								"translations"
 							],
 							"query": [
 								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
+									"key": "key",
+									"value": "key_jklcwp"
 								},
 								{
-									"key": "search",
-									"value": "eveniet",
-									"disabled": true
+									"key": "locale",
+									"value": "fr"
 								}
 							]
 						}
@@ -383,17 +365,18 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/translations?search=key_ygvorm",
+							"raw": "{{base_url}}/translations/search?search=hello",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"translations"
+								"translations",
+								"search"
 							],
 							"query": [
 								{
 									"key": "search",
-									"value": "key_ygvorm"
+									"value": "hello"
 								}
 							]
 						}
@@ -430,18 +413,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/translations?search=key_ygvorm",
+							"raw": "{{base_url}}/translations/export",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"translations"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": "key_ygvorm"
-								}
+								"translations",
+								"export"
 							]
 						}
 					},
